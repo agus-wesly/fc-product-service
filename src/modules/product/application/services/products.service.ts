@@ -1,15 +1,14 @@
 import { Injectable } from '@nestjs/common';
-
-interface Product {
-    name: string;
-    price: number;
-    qty: number;
-}
+import { CreateProductDTO } from '../dtos/create-product.dto';
 
 @Injectable()
 export class ProductsService {
-    async create(product: Product){
+    async create(product: CreateProductDTO){
         console.log(product)
         return "creating product..."
+    }
+
+    async findById(id: string){
+        return id
     }
 }
