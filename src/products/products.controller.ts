@@ -1,5 +1,5 @@
 import { Controller, Post, Body } from '@nestjs/common';
-import { IsString, IsNumber, IsDate, IsNotEmpty } from 'class-validator';
+import { IsString, IsNumber, IsNotEmpty } from 'class-validator';
 import {ProductsService} from "./products.service"
 
 class ProductDTO {
