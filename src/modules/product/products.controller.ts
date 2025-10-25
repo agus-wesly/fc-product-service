@@ -1,7 +1,7 @@
-import { Controller, Get, Post, Body, Param, UseInterceptors  } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, UseInterceptors } from '@nestjs/common';
 import { ProductsService } from "./application/services/products.service"
 import { CreateProductDTO } from './application/dtos/create-product.dto';
-import { CacheInterceptor } from '@nestjs/cache-manager';
+import {  CacheInterceptor, CacheTTL } from '@nestjs/cache-manager';
 
 @Controller('products')
 export class ProductsController {
@@ -15,6 +15,7 @@ export class ProductsController {
     }
 
     @UseInterceptors(CacheInterceptor)
+    @CacheTTL(5000)
     @Get(":id")
     async findById(@Param("id") id: string) {
         return this.productServices.findById(id)
