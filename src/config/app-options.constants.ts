@@ -14,7 +14,6 @@ import { redisStore } from "cache-manager-redis-store";
                         host: configService.get("REDIS_HOST"),
                         port: parseInt(configService.get("REDIS_PORT")!),
                     },
-                    database: 1,
                 });
                 return { store }
             },
