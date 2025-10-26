@@ -14,7 +14,7 @@ export class ProductsController {
     @Post()
     async create(@Body() productDto: CreateProductDTO) {
         const newProduct = await this.productServices.create(productDto)
-        this.client.send('product.created', newProduct)
+        this.client.emit('product.created', newProduct)
         return newProduct
     }
 
