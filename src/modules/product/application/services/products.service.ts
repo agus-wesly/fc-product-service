@@ -1,9 +1,8 @@
-import { Injectable, UseInterceptors } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { CreateProductDTO } from '../dtos/create-product.dto';
 import { ProductEntity } from '../../domain/entities/product.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CacheInterceptor } from '@nestjs/cache-manager';
 
 @Injectable()
 export class ProductsService {
