@@ -1,23 +1,12 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { Transport } from '@nestjs/microservices';
 import { BadRequestException, ValidationPipe } from '@nestjs/common';
+import { rabbitMQConfig } from './config/rabbitmq-options.constants';
 
 async function bootstrap() {
     const app = await NestFactory.create(AppModule);
 
-    app.connectMicroservice(
-        {
-            transport: Transport.RMQ,
-            options: {
-                urls: [`amqp://${process.env.RABBITMQ_HOST}:${process.env.RABBITMQ_PORT}`],
-                queue: 'app_queue',
-                queueOptions: {
-                    durable: true,
-                },
-            }
-        }
-    )
+    app.connectMicroservice(rabbitMQConfig())
     await app.startAllMicroservices();
 
     app.useGlobalPipes(
