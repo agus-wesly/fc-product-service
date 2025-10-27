@@ -8,7 +8,7 @@ export class ProductEntity {
     @Column()
     name: string;
 
-    @Column({ type: 'decimal' })
+    @Column({ type: 'int' })
     price: number;
 
     @Column({ type: 'int' })
