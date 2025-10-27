@@ -14,6 +14,6 @@ export class ProductEntity {
     @Column({ type: 'int' })
     qty: number;
 
-    @Column({ type: 'date' })
+    @Column({ type: 'datetime', default: () => 'CURRENT_TIMESTAMP' })
     createdAt: Date;
 }
