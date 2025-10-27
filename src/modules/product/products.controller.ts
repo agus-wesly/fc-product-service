@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, UseInterceptors, Inject } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, UseInterceptors, Inject, NotFoundException } from '@nestjs/common';
 import { ProductsService } from "./application/services/products.service"
 import { CreateProductDTO } from './application/dtos/create-product.dto';
 import {  CacheInterceptor, CacheTTL } from '@nestjs/cache-manager';
@@ -22,6 +22,10 @@ export class ProductsController {
     @CacheTTL(5000)
     @Get(":id")
     async findById(@Param("id") id: string) {
-        return this.productServices.findById(id)
+        const product = await this.productServices.findById(id)
+        if (!product) {
+            throw new NotFoundException('Product not found');
+        }
+        return product
     }
 }
