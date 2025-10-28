@@ -19,6 +19,11 @@ export class ProductsController {
         return newProduct
     }
 
+    @Get()
+    async find() {
+        return await this.productServices.find()
+    }
+
     @Get(":id")
     async findById(@Param("id") id: string) {
         const cacheKey = `product-${id}`
