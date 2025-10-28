@@ -16,6 +16,7 @@ export class ProductsService {
     }
 
     async findById(id: string) {
+        console.info("called in service")
         return this.productRepository.findOneBy({ id })
     }
 }

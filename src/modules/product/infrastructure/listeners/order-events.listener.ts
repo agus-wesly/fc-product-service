@@ -1,16 +1,24 @@
-import { Controller } from '@nestjs/common';
+import { Controller, Inject } from '@nestjs/common';
 import { EventPattern, Payload } from '@nestjs/microservices';
 import { HandleOrderEventsService } from '../../application/services/handle-order-event.service';
+import { CACHE_MANAGER, Cache } from '@nestjs/cache-manager';
+
+type OrderCreatedPayload = {
+    id: string
+    productId: string
+}
 
 @Controller()
 export class OrderEventsListener {
     constructor(
         private readonly handleOrderEvents: HandleOrderEventsService,
+        @Inject(CACHE_MANAGER) private cacheManager: Cache,
     ){}
 
     @EventPattern('order.created')
-    async onOrderCreated(@Payload() data: any) {
-        console.log("Received", data)
-        this.handleOrderEvents.orderCreated(data)
+    async onOrderCreated(@Payload() data: OrderCreatedPayload) {
+        console.info(`Received event order.created with payload`)
+        this.handleOrderEvents.orderCreated(data.productId)
+        await this.cacheManager.del(`product-${data.productId}`)
     }
 }
