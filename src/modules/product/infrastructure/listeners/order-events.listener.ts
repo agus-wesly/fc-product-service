@@ -2,11 +2,7 @@ import { Controller, Inject } from '@nestjs/common';
 import { EventPattern, Payload } from '@nestjs/microservices';
 import { HandleOrderEventsService } from '../../application/services/handle-order-event.service';
 import { CACHE_MANAGER, Cache } from '@nestjs/cache-manager';
-
-type OrderCreatedPayload = {
-    id: string
-    productId: string
-}
+import { OrderCreatedDTO } from '../../application/dtos/order-created.dto';
 
 @Controller()
 export class OrderEventsListener {
@@ -16,7 +12,7 @@ export class OrderEventsListener {
     ){}
 
     @EventPattern('order.created')
-    async onOrderCreated(@Payload() data: OrderCreatedPayload) {
+    async onOrderCreated(@Payload() data: OrderCreatedDTO) {
         console.info(`Received event order.created with payload`)
         this.handleOrderEvents.orderCreated(data.productId)
         await this.cacheManager.del(`product-${data.productId}`)
