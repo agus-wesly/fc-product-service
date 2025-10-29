@@ -2,7 +2,7 @@ import { Test } from "@nestjs/testing"
 import { OrderEventsListener } from "./order-events.listener"
 import { HandleOrderEventsService } from "../../application/services/handle-order-event.service"
 import { CACHE_MANAGER } from "@nestjs/cache-manager"
-import { OrderCreatedPayload } from "./order-events.listener"
+import { OrderCreatedDTO } from "../../application/dtos/order-created.dto"
 
 describe("OrderEventsListener", () => {
     let orderEventsListener: OrderEventsListener
@@ -32,10 +32,10 @@ describe("OrderEventsListener", () => {
     })
 
     it("Should handle order.created event", async () => {
-        const payload: OrderCreatedPayload = {
-            id: "12345678",
-            productId: "12345678"
-        };
+        const payload = new OrderCreatedDTO
+        payload.id = "12345678"
+        payload.productId = "12345678"
+
         orderEventsListener.onOrderCreated(payload)
         expect(orderCreatedMockFn).toHaveBeenCalled()
         expect(delCacheMockFn).toHaveBeenCalled()
