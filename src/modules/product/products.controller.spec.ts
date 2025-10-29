@@ -92,5 +92,3 @@ describe('ProductController', () => {
         })
     })
 })
-// 
-// describe('Should handle event', () => { })
