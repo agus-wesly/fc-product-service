@@ -3,6 +3,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { ProductEntity } from 'src/modules/product/domain/entities/product.entity';
 
+const isInProduction = process.env.NODE_ENV === "production"
+
 @Module({
     imports: [
         ConfigModule.forRoot(),
@@ -13,7 +15,7 @@ import { ProductEntity } from 'src/modules/product/domain/entities/product.entit
             username: process.env.MYSQL_USERNAME,
             password: process.env.MYSQL_PASSWORD,
             database: process.env.MYSQL_DATABASE,
-            synchronize: false,
+            synchronize: !(isInProduction),
             entities: [ProductEntity],
         })
     ]
