@@ -14,3 +14,7 @@ npm run build
 npm run typeorm:run
 npm run start
 ```
+### Run Unit Testing
+```bash
+npm run test
+```
