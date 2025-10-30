@@ -6,20 +6,24 @@ import { Repository } from 'typeorm';
 
 @Injectable()
 export class ProductsService {
-    constructor(
-        @InjectRepository(ProductEntity)
-        private productRepository: Repository<ProductEntity>
-    ) { }
+  constructor(
+    @InjectRepository(ProductEntity)
+    private productRepository: Repository<ProductEntity>,
+  ) {}
 
-    async create(data: CreateProductDTO) {
-        return this.productRepository.save({ id: crypto.randomUUID(), ...data, createdAt: new Date() })
-    }
+  async create(data: CreateProductDTO) {
+    return this.productRepository.save({
+      id: crypto.randomUUID(),
+      ...data,
+      createdAt: new Date(),
+    });
+  }
 
-    async findById(id: string) {
-        return this.productRepository.findOneBy({ id })
-    }
+  async findById(id: string) {
+    return this.productRepository.findOneBy({ id });
+  }
 
-    async find() {
-        return this.productRepository.find()
-    }
+  async find() {
+    return this.productRepository.find();
+  }
 }

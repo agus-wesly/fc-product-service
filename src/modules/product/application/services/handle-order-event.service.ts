@@ -5,19 +5,18 @@ import { Repository } from 'typeorm';
 
 @Injectable()
 export class HandleOrderEventsService {
-    constructor(
-        @InjectRepository(ProductEntity)
-        private productRepository: Repository<ProductEntity>
-    ) { }
+  constructor(
+    @InjectRepository(ProductEntity)
+    private productRepository: Repository<ProductEntity>,
+  ) {}
 
-    async orderCreated(productId: string) {
-        const product = await this.productRepository.findOneBy({ id: productId });
-        if (!product) {
-            throw new NotFoundException('Product not found');
-        }
-        if (product.qty > 0)
-            product.qty--
-
-        await this.productRepository.save(product)
+  async orderCreated(productId: string) {
+    const product = await this.productRepository.findOneBy({ id: productId });
+    if (!product) {
+      throw new NotFoundException('Product not found');
     }
+    if (product.qty > 0) product.qty--;
+
+    await this.productRepository.save(product);
+  }
 }

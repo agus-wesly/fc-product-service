@@ -1,10 +1,9 @@
-import { IsString } from "class-validator"
-
+import { IsString } from 'class-validator';
 
 export class OrderCreatedDTO {
-    @IsString()
-    id: string
+  @IsString()
+  id: string;
 
-    @IsString()
-    productId: string
+  @IsString()
+  productId: string;
 }
